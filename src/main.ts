@@ -1,8 +1,21 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { ConfigService } from '@nestjs/config';
+import { initSwagger } from './config/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  const config = app.get(ConfigService);
+  app.setGlobalPrefix('api/v1');
+  initSwagger(app);
+  
+  const SWAGGER_API_SERVER = config.get<string>('SWAGGER_API_SERVER');
+  const PORT = config.get<string>('PORT');
+  await app.listen(PORT);
+
+  console.log(`[⚡Server] Server is running on: ${SWAGGER_API_SERVER}/api/v1`);
+  console.log(
+    `[⚡Server] Swagger is running on: ${SWAGGER_API_SERVER}/swagger`,
+  );
 }
 bootstrap();
