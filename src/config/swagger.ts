@@ -2,11 +2,15 @@ import { INestApplication } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-export const initSwagger = (app: INestApplication) => {
+export const SwaggerConfig = (app: INestApplication) => {
   const config = new ConfigService();
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('Cosmetics Store API Document')
-    .setDescription('Description of Cosmetics Store')
+    .setTitle(
+      'E-learning website verify certificates using blockchain API Document',
+    )
+    .setDescription(
+      'Description of E-learning website verify certificates using blockchain',
+    )
     .addServer(config.get('SWAGGER_API_SERVER'))
     .addBearerAuth(
       {
@@ -17,7 +21,7 @@ export const initSwagger = (app: INestApplication) => {
         type: 'http',
         in: 'Header',
       },
-      'access_token',
+      // 'access_token',
     )
     .build();
   const document = SwaggerModule.createDocument(app, swaggerConfig);
