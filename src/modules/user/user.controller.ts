@@ -18,6 +18,11 @@ export class UserController {
     return this.userService.create(data);
   }
 
+  @Post(':/userName')
+  update(@Body() data: UserDTO) {
+    return this.userService.update(data);
+  }
+
   @Put()
   login(@Body() userName: string, @Body() password: string) {
     return this.userService.login(userName, password);
